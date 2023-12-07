@@ -1,16 +1,15 @@
 package com.ensa.srisearcher.algorithms;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import com.ensa.srisearcher.models.IndexedDocument;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class ScraperAlgo {
-
+    private final Set<IndexedDocument> docs=new HashSet<>();
     private final Map<String, Map<String, List<String>>> scrapedData = new HashMap<>();
     private final Map<String, String> keywordsToUrls=new HashMap<>();
 
@@ -32,7 +31,7 @@ public class ScraperAlgo {
             extractTagContent(document, "span", result);
             extractTagContent(document, "a", result);
             scrapedData.put(url, result);
-
+            docs.add(new IndexedDocument(url, result));
             // Do the indexing here
 
             return result;

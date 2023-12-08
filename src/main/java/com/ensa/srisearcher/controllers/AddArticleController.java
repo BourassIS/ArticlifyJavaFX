@@ -1,10 +1,12 @@
 package com.ensa.srisearcher.controllers;
 import com.ensa.srisearcher.Main;
+import com.ensa.srisearcher.algorithms.DataStore;
 import com.ensa.srisearcher.algorithms.ScraperAlgo;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,17 +15,23 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
-public class AddArticleController {
+public class AddArticleController implements Initializable {
     private final ScraperAlgo scraperAlgo=new ScraperAlgo();
     private Stage stage;
     private Scene scene;
     private Parent root;
+    @FXML
+    private VBox articlesList;
     @FXML
     private Button startNowButton;
 
@@ -33,16 +41,7 @@ public class AddArticleController {
     @FXML
     private ImageView goToSearchPageButton;
 
-    @FXML
-    void deleteArticleUrl(ActionEvent event) {
-        /*
-        * try{
-            this.switchPage(event, "AddArticle.fxml");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        * */
-    }
+
 
     @FXML
     void addArticleUrl(MouseEvent event) {
@@ -58,6 +57,25 @@ public class AddArticleController {
             this.switchPageMouse(event, "search.fxml");
         }catch (Exception e){
             e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ArrayList<String> urls= new ArrayList<>(DataStore.scrapedData.keySet());
+        try {
+            for(int i =0 ;i<urls.size();i++){
+                FXMLLoader fxmlLoader= new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/com/ensa/srisearcher/views/ArticleCard.fxml"));
+                VBox cardboard =fxmlLoader.load();
+                ArticleCardController cardBookController = fxmlLoader.getController();
+                cardBookController.SetData(urls.get(i));
+                articlesList.getChildren().add(cardboard);
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+
         }
 
     }

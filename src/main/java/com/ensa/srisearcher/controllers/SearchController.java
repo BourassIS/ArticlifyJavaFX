@@ -104,4 +104,15 @@ public class SearchController implements Initializable {
         stage.setHeight(680);
         stage.show();
     }
+
+    @FXML
+    public void goToAddArticlePageCall(MouseEvent event){
+        try {
+            this.switchPageMouse(event, "AddArticle.fxml");
+        }catch (IOException e){
+            e.printStackTrace();
+
+
+        }
+    }
 }

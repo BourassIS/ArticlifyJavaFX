@@ -10,7 +10,9 @@ public class DataStore {
     public static Map<String, Set<Integer>> index=new HashMap<>();
     public static Map<Integer, String> mapsDocIdsToUrls = new HashMap<>();
     public static Map<String, Map<String, List<String>>> scrapedData = new HashMap<>();
-
+    static {
+        scrapedData.put("https://www.jumia.ma/catalog/?q=knives&sort=rating#catalog-listing", null);
+    }
     public static Integer getDocId() {
         return docId;
     }

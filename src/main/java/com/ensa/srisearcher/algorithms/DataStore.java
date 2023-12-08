@@ -5,6 +5,7 @@ import com.ensa.srisearcher.models.IndexedDocument;
 import java.util.*;
 
 public class DataStore {
+    public static Set<String> urls = new HashSet<>();
     public static InvertedIndex invertedIndex=new InvertedIndex();
     public static Integer docId=0;
     public static Map<String, Set<Integer>> index=new HashMap<>();
@@ -16,9 +17,7 @@ public class DataStore {
     public static Integer getDocId() {
         return docId;
     }
-
     public static void incrementDocId() {
         docId++;
     }
-
 }

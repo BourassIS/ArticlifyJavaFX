@@ -13,6 +13,7 @@ public class ScraperAlgo {
 
 
     public Map<String, List<String>> scrapePage(String url) {
+
         Map<String, List<String>> result = new HashMap<>();
 
         try {

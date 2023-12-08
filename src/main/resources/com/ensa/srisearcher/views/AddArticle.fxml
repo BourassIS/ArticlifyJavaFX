@@ -17,6 +17,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="960.0" style="-fx-background-color: #4A20AA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensa.srisearcher.controllers.AddArticleController">
    <children>
       <AnchorPane layoutX="783.0" layoutY="30.0" prefHeight="76.0" prefWidth="147.0">
@@ -60,9 +61,9 @@
                   <Insets top="13.0" />
                </padding>
             </HBox>
-            <GridPane layoutX="29.0" layoutY="143.0" maxWidth="844.0" prefHeight="289.0" prefWidth="836.0" style="-fx-background-color: #F2F3F5;" stylesheets="@style.css">
+            <ScrollPane layoutX="29.0" layoutY="143.0" maxWidth="844.0" prefHeight="289.0" prefWidth="836.0" style="-fx-background-color: #F2F3F5;" stylesheets="@style.css">
                 <VBox fx:id="articlesList"/>
-            </GridPane>
+            </ScrollPane>
          </children>
       </Pane>
    </children>

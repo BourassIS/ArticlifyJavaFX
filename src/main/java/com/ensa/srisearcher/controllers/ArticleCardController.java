@@ -1,14 +1,18 @@
 package com.ensa.srisearcher.controllers;
 
+import com.ensa.srisearcher.algorithms.DataStore;
 import com.ensa.srisearcher.models.SearchResultItem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+
 
 public class ArticleCardController {
     private Stage stage;
@@ -33,12 +37,6 @@ public class ArticleCardController {
 
     @FXML
     void deleteArticleUrl(ActionEvent event) {
-        /*
-        * try{
-            this.switchPage(event, "AddArticle.fxml");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        * */
+        DataStore.urls.remove(url.getText());
     }
 }

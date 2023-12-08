@@ -31,7 +31,8 @@ public class AddArticleController implements Initializable {
     private Scene scene;
     private Parent root;
     @FXML
-    private VBox articlesList;
+    public VBox articlesList;
+
     @FXML
     private Button startNowButton;
 
@@ -45,9 +46,24 @@ public class AddArticleController implements Initializable {
 
     @FXML
     void addArticleUrl(MouseEvent event) {
-        if(articleUrl.getText().isEmpty())return;
-        scraperAlgo.scrapePage(articleUrl.getText());
+        if(articleUrl.getText().isEmpty() || articleUrl.getText().isBlank())return;
+        articlesList.getChildren().clear();
+        DataStore.urls.add(articleUrl.getText());
+        ArrayList<String> urls= new ArrayList<>(DataStore.urls);
+        try {
+            for(int i =0 ;i<urls.size();i++){
+                FXMLLoader fxmlLoader= new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/com/ensa/srisearcher/views/ArticleCard.fxml"));
+                VBox cardboard =fxmlLoader.load();
+                ArticleCardController cardBookController = fxmlLoader.getController();
+                cardBookController.SetData(urls.get(i));
+                articlesList.getChildren().add(cardboard);
+            }
+        }catch (IOException e){
+            e.printStackTrace();
 
+        }
+        scraperAlgo.scrapePage(articleUrl.getText());
     }
 
     @FXML
@@ -63,7 +79,7 @@ public class AddArticleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<String> urls= new ArrayList<>(DataStore.scrapedData.keySet());
+        ArrayList<String> urls= new ArrayList<>(DataStore.urls);
         try {
             for(int i =0 ;i<urls.size();i++){
                 FXMLLoader fxmlLoader= new FXMLLoader();

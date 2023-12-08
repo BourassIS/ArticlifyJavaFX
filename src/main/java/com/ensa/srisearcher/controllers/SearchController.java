@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -77,6 +78,7 @@ public class SearchController implements Initializable {
         }catch (IOException e){
             e.printStackTrace();
 
+
         }
         // Update the vbox
     }
@@ -84,11 +86,22 @@ public class SearchController implements Initializable {
     public  void switchPage(ActionEvent event, String pageName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/ensa/srisearcher/views/"+pageName));
         System.out.println("FXML Loader URL: " + Main.class.getResource("/com/ensa/srisearcher/views/" + pageName));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 960, 640);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
-        stage.setWidth(1034);
-        stage.setHeight(800);
+        stage.setWidth(960);
+        stage.setHeight(640);
+        stage.show();
+    }
+
+    public  void switchPageMouse(MouseEvent event, String pageName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/ensa/srisearcher/views/"+pageName));
+        System.out.println("FXML Loader URL: " + Main.class.getResource("/com/ensa/srisearcher/views/" + pageName));
+        Scene scene = new Scene(fxmlLoader.load(), 973, 680);
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setWidth(973);
+        stage.setHeight(680);
         stage.show();
     }
 }

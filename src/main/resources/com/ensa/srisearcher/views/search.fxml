@@ -9,20 +9,22 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.ListView?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="960.0" style="-fx-background-color: #4A20AA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensa.srisearcher.controllers.SearchController">
    <children>
-      <AnchorPane layoutX="215.0" layoutY="30.0" prefHeight="86.0" prefWidth="703.0" stylesheets="@style.css">
+      <AnchorPane layoutX="215.0" layoutY="30.0" prefHeight="86.0" prefWidth="630.0" stylesheets="@style.css">
          <children>
-            <Pane prefHeight="83.0" prefWidth="709.0" style="-fx-background-color: #EF2E41; -fx-background-radius: 100;" />
-            <Pane layoutX="11.0" layoutY="10.0" prefHeight="62.0" prefWidth="687.0" style="-fx-background-color: #f2f3f5; -fx-background-radius: 100;">
+            <Pane prefHeight="83.0" prefWidth="648.0" style="-fx-background-color: #EF2E41; -fx-background-radius: 100;" />
+            <Pane layoutX="11.0" layoutY="10.0" prefHeight="62.0" prefWidth="609.0" style="-fx-background-color: #f2f3f5; -fx-background-radius: 100;">
                <children>
                   <TextField fx:id="query" prefHeight="62.0" prefWidth="571.0" promptText="Write Your Keywords ..." style="-fx-background-radius: 100;">
                      <font>
@@ -35,7 +37,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <Button fx:id="search" alignment="CENTER" contentDisplay="CENTER" layoutX="526.0" mnemonicParsing="false" onAction="#searchArticles" prefHeight="62.0" prefWidth="161.0" style="-fx-background-radius: 100; -fx-cursor: hand;" styleClass="gris_button" stylesheets="@style.css" text="Rechercher" textFill="WHITE">
+                  <Button fx:id="search" alignment="CENTER" contentDisplay="CENTER" layoutX="465.0" mnemonicParsing="false" onAction="#searchArticles" prefHeight="62.0" prefWidth="161.0" style="-fx-background-radius: 100; -fx-cursor: hand;" styleClass="gris_button" stylesheets="@style.css" text="Rechercher" textFill="WHITE">
                      <font>
                         <Font name="Montserrat SemiBold" size="19.0" />
                      </font>
@@ -59,7 +61,16 @@
             <ListView layoutX="20.0" layoutY="64.0" prefHeight="382.0" prefWidth="858.0">
                <VBox fx:id="BookLayout" prefHeight="489.0" prefWidth="800.0" />
             </ListView>
+
          </children>
       </Pane>
+      <ImageView fx:id="goToAddArticlePageButton" fitHeight="40.0" fitWidth="40.0" layoutX="886.0" layoutY="54.0" onMouseClicked="#goToAddArticlePageCall" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@return.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
    </children>
 </Pane>

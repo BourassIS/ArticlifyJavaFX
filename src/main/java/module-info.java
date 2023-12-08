@@ -8,6 +8,7 @@ module com.example.libraryapp {
     opens com.ensa.srisearcher to javafx.fxml;
     exports com.ensa.srisearcher;
     exports com.ensa.srisearcher.controllers;
+    exports com.ensa.srisearcher.models;
 
     opens com.ensa.srisearcher.controllers to javafx.fxml;
 

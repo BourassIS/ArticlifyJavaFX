@@ -16,6 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.ListView?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="960.0" style="-fx-background-color: #4A20AA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensa.srisearcher.controllers.SearchController">
    <children>
       <AnchorPane layoutX="215.0" layoutY="30.0" prefHeight="86.0" prefWidth="703.0" stylesheets="@style.css">
@@ -23,7 +24,7 @@
             <Pane prefHeight="83.0" prefWidth="709.0" style="-fx-background-color: #EF2E41; -fx-background-radius: 100;" />
             <Pane layoutX="11.0" layoutY="10.0" prefHeight="62.0" prefWidth="687.0" style="-fx-background-color: #f2f3f5; -fx-background-radius: 100;">
                <children>
-                  <TextField fx:id="nom" prefHeight="62.0" prefWidth="571.0" promptText="Write Your Keywords ..." style="-fx-background-radius: 100;">
+                  <TextField fx:id="query" prefHeight="62.0" prefWidth="571.0" promptText="Write Your Keywords ..." style="-fx-background-radius: 100;">
                      <font>
                         <Font name="Lato Semibold" size="20.0" />
                      </font>
@@ -55,108 +56,9 @@
                   <Font name="Lato Semibold" size="21.0" />
                </font>
             </Label>
-            <Pane layoutX="20.0" layoutY="64.0" prefHeight="382.0" prefWidth="858.0" style="-fx-background-color: #f2f3f5; -fx-background-radius: 15;">
-               <children>
-                  <GridPane layoutX="13.0" layoutY="16.0" maxWidth="844.0" prefHeight="350.0" prefWidth="836.0" style="-fx-background-radius: 100; -fx-background-color: #F2F3F5;" stylesheets="@style.css">
-                     <AnchorPane prefHeight="83.0" prefWidth="835.0">
-                        <children>
-                           <HBox alignment="CENTER" fillHeight="false" prefHeight="90.0" prefWidth="834.0" spacing="5.0">
-                              <children>
-                                 <AnchorPane prefHeight="90.0" prefWidth="48.0">
-                                    <children>
-                                       <ImageView fitHeight="68.0" fitWidth="36.0" layoutX="1.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                                          <image>
-                                             <Image url="@article.png" />
-                                          </image>
-                                       </ImageView>
-                                    </children>
-                                 </AnchorPane>
-                                 <VBox prefHeight="90.0" prefWidth="746.0">
-                                    <children>
-                                       <Label cache="true" prefHeight="42.0" prefWidth="751.0" style="-fx-cursor: hand;" text="https://www.qrpinternational.fr/blog/gestion-des-services-informatiques/devops-cest-quoi-definition" textFill="#4a20aa">
-                                          <font>
-                                             <Font name="Lato Heavy" size="17.0" />
-                                          </font>
-                                       </Label>
-                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-padding: 10;" text="DevOps vise à créer une culture et un environnement dans lesquels la conception, les tests et la diffusion de logiciels peuvent être réalisés rapidement, ..." wrappingWidth="723.1155395507812">
-                                          <font>
-                                             <Font name="Lato Medium" size="15.0" />
-                                          </font>
-                                       </Text>
-                                    </children>
-                                 </VBox>
-                              </children>
-                           </HBox>
-                           <Separator layoutX="1.0" layoutY="88.0" prefHeight="2.0" prefWidth="833.0" style="-fx-background-color: #E3E5E8;" />
-                        </children>
-                     </AnchorPane>
-                     <AnchorPane prefHeight="83.0" prefWidth="835.0">
-                        <children>
-                           <HBox alignment="CENTER" fillHeight="false" prefHeight="90.0" prefWidth="834.0" spacing="5.0">
-                              <children>
-                                 <AnchorPane prefHeight="90.0" prefWidth="48.0">
-                                    <children>
-                                       <ImageView fitHeight="68.0" fitWidth="36.0" layoutX="1.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                                          <image>
-                                             <Image url="@article.png" />
-                                          </image>
-                                       </ImageView>
-                                    </children>
-                                 </AnchorPane>
-                                 <VBox prefHeight="90.0" prefWidth="746.0">
-                                    <children>
-                                       <Label cache="true" prefHeight="42.0" prefWidth="751.0" style="-fx-cursor: hand;" text="https://www.qrpinternational.fr/blog/gestion-des-services-informatiques/devops-cest-quoi-definition" textFill="#4a20aa">
-                                          <font>
-                                             <Font name="Lato Heavy" size="17.0" />
-                                          </font>
-                                       </Label>
-                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-padding: 10;" text="DevOps vise à créer une culture et un environnement dans lesquels la conception, les tests et la diffusion de logiciels peuvent être réalisés rapidement, ..." wrappingWidth="723.1155395507812">
-                                          <font>
-                                             <Font name="Lato Medium" size="15.0" />
-                                          </font>
-                                       </Text>
-                                    </children>
-                                 </VBox>
-                              </children>
-                           </HBox>
-                           <Separator layoutX="1.0" layoutY="88.0" prefHeight="2.0" prefWidth="833.0" style="-fx-background-color: #E3E5E8;" />
-                        </children>
-                     </AnchorPane>
-                     <AnchorPane prefHeight="83.0" prefWidth="835.0">
-                        <children>
-                           <HBox alignment="CENTER" fillHeight="false" prefHeight="90.0" prefWidth="834.0" spacing="5.0">
-                              <children>
-                                 <AnchorPane prefHeight="90.0" prefWidth="48.0">
-                                    <children>
-                                       <ImageView fitHeight="68.0" fitWidth="36.0" layoutX="1.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                                          <image>
-                                             <Image url="@article.png" />
-                                          </image>
-                                       </ImageView>
-                                    </children>
-                                 </AnchorPane>
-                                 <VBox prefHeight="90.0" prefWidth="746.0">
-                                    <children>
-                                       <Label cache="true" prefHeight="42.0" prefWidth="751.0" style="-fx-cursor: hand;" text="https://www.qrpinternational.fr/blog/gestion-des-services-informatiques/devops-cest-quoi-definition" textFill="#4a20aa">
-                                          <font>
-                                             <Font name="Lato Heavy" size="17.0" />
-                                          </font>
-                                       </Label>
-                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-padding: 10;" text="DevOps vise à créer une culture et un environnement dans lesquels la conception, les tests et la diffusion de logiciels peuvent être réalisés rapidement, ..." wrappingWidth="723.1155395507812">
-                                          <font>
-                                             <Font name="Lato Medium" size="15.0" />
-                                          </font>
-                                       </Text>
-                                    </children>
-                                 </VBox>
-                              </children>
-                           </HBox>
-                           <Separator layoutX="1.0" layoutY="88.0" prefHeight="2.0" prefWidth="833.0" style="-fx-background-color: #E3E5E8;" />
-                        </children>
-                     </AnchorPane>
-                  </GridPane>
-               </children>
-            </Pane>
+            <ListView layoutX="20.0" layoutY="64.0" prefHeight="382.0" prefWidth="858.0">
+               <VBox fx:id="BookLayout" prefHeight="489.0" prefWidth="800.0" />
+            </ListView>
          </children>
       </Pane>
    </children>

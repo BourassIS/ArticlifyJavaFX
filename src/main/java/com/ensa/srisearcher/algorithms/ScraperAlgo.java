@@ -1,6 +1,7 @@
 package com.ensa.srisearcher.algorithms;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.ensa.srisearcher.models.IndexedDocument;
 import org.jsoup.Jsoup;
@@ -9,9 +10,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class ScraperAlgo {
-    private final Set<IndexedDocument> docs=new HashSet<>();
-    private final Map<String, Map<String, List<String>>> scrapedData = new HashMap<>();
-    private final Map<String, String> keywordsToUrls=new HashMap<>();
+
 
     public Map<String, List<String>> scrapePage(String url) {
         Map<String, List<String>> result = new HashMap<>();
@@ -30,10 +29,16 @@ public class ScraperAlgo {
             extractTagContent(document, "p", result);
             extractTagContent(document, "span", result);
             extractTagContent(document, "a", result);
-            scrapedData.put(url, result);
-            docs.add(new IndexedDocument(url, result));
-            // Do the indexing here
-
+            DataStore.scrapedData.put(url, result);
+            List<String> concatenatedList = result.entrySet().stream()
+                    .flatMap(entry -> entry.getValue().stream()
+                            .flatMap(str -> Arrays.stream(str.split("\\s+")))) // split each string into words
+                    .collect(Collectors.toList());
+            System.out.println(concatenatedList);
+            DataStore.invertedIndex.addDocument(DataStore.getDocId(), concatenatedList);
+            DataStore.mapsDocIdsToUrls.put(DataStore.getDocId(), url);
+            DataStore.incrementDocId();
+            System.out.println(DataStore.index);
             return result;
         } catch (Exception e) {
             result.put("error", List.of("Error: " + e.getMessage()));

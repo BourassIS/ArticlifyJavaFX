@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AddArticleController {
+    private final ScraperAlgo scraperAlgo=new ScraperAlgo();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -45,13 +46,9 @@ public class AddArticleController {
 
     @FXML
     void addArticleUrl(MouseEvent event) {
-        // Scraping
-        Map<String, List<String>> scrappedData= new ScraperAlgo().scrapePage(this.articleUrl.getText());
-        System.out.println(scrappedData);
+        if(articleUrl.getText().isEmpty())return;
+        scraperAlgo.scrapePage(articleUrl.getText());
 
-        // Indexing would go here
-
-        System.out.println("The url u want to add is:\t"+articleUrl.getText());
     }
 
     @FXML

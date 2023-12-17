@@ -8,8 +8,8 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=test
     volumes:
-      - sri_data_test_me:/var/lib/mysql
+      - sri_data_testo:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
-  sri_data_test_me:
+  sri_data_testo:

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.ensa.srisearcher.models.IndexedDocument;
 import com.ensa.srisearcher.utils.Converter;
+import com.ensa.srisearcher.utils.serializables.SerializableHashMap;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,7 +18,7 @@ public class ScraperAlgo implements Serializable {
     public Map<String, List<String>> scrapePage(String url) {
         DataStore dataStore= Converter.getDataStore();
 
-        Map<String, List<String>> result = new HashMap<>();
+        SerializableHashMap<String, List<String>> result = new SerializableHashMap<>();
 
         try {
             // Send an HTTP request to the provided URL and parse the HTML content
@@ -39,7 +40,7 @@ public class ScraperAlgo implements Serializable {
                             .flatMap(str -> Arrays.stream(str.split("\\s+")))) // split each string into words
                     .collect(Collectors.toList());
             System.out.println(concatenatedList);
-            dataStore.invertedIndex.addDocument(dataStore.getDocId(), concatenatedList);
+            Converter.addDocument(dataStore.getDocId(), concatenatedList);
             dataStore.mapsDocIdsToUrls.put(dataStore.getDocId(), url);
             dataStore.incrementDocId();
             System.out.println(dataStore.index);

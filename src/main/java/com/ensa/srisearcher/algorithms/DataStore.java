@@ -1,6 +1,9 @@
 package com.ensa.srisearcher.algorithms;
 
 import com.ensa.srisearcher.models.IndexedDocument;
+import com.ensa.srisearcher.utils.Converter;
+import com.ensa.srisearcher.utils.serializables.SerializableHashMap;
+import com.ensa.srisearcher.utils.serializables.SerializableHashSet;
 import lombok.Getter;
 
 import java.io.Serial;
@@ -12,22 +15,21 @@ public class DataStore implements Serializable {
     @Serial
     private static final long serialVersionUID = 6302486780056322048L;
 
-    public Set<String> urls = new HashSet<>();
-    public InvertedIndex invertedIndex=new InvertedIndex();
+    public SerializableHashSet<String> urls = new SerializableHashSet<>();
     public Integer docId=0;
-    public Map<String, Set<Integer>> index=new HashMap<>();
-    public Map<Integer, String> mapsDocIdsToUrls = new HashMap<>();
-    public Map<String, Map<String, List<String>>> scrapedData = new HashMap<>();
+    public HashMap<String, SerializableHashSet<Integer>> index=new SerializableHashMap<>();
+    public HashMap<Integer, String> mapsDocIdsToUrls = new SerializableHashMap<>();
+    public HashMap<String, HashMap<String, List<String>>> scrapedData = new SerializableHashMap<>();
 
     public void incrementDocId() {
         docId++;
+        Converter.update(this);
     }
 
     @Override
     public String toString() {
         return "DataStore{" +
                 "urls=" + urls +
-                ", invertedIndex=" + invertedIndex +
                 ", docId=" + docId +
                 ", index=" + index +
                 ", mapsDocIdsToUrls=" + mapsDocIdsToUrls +

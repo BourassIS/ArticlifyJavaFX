@@ -1,30 +1,25 @@
 package com.ensa.srisearcher.utils;
 
 import com.ensa.srisearcher.algorithms.DataStore;
+import com.ensa.srisearcher.utils.serializables.SerializableHashSet;
 
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Base64;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Converter{
     public static String serializeObject(Object obj) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try (ObjectOutputStream oos = new ObjectOutputStream(bos)) {
-            oos.writeObject(obj);
-            oos.flush();
-            return Base64.getEncoder().encodeToString(bos.toByteArray());
-        }
+        return CompressedSerializer.compressAndSerialize(obj);
     }
 
     public static Object deserializeObject(String str) throws IOException, ClassNotFoundException {
-        byte[] bytes = Base64.getDecoder().decode(str);
-        try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes))) {
-            return ois.readObject();
-        }
+        return CompressedSerializer.decompressAndDeserialize(str);
     }
-
 
     public static boolean update(DataStore dataStore) {
         ConnectionDB conDb = new ConnectionDB();
@@ -55,14 +50,11 @@ public class Converter{
 
     public static DataStore getDataStore() {
         ConnectionDB conDb = new ConnectionDB();
-
         try (PreparedStatement ps = conDb.getCon().prepareStatement("SELECT data FROM data_store_table")) {
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 String serializedData = rs.getString("data");
-                System.out.println("DataStore from getDataStore\n" + (DataStore) Converter.deserializeObject(serializedData));
-
+                System.out.println("Data was found");
                 return (DataStore) Converter.deserializeObject(serializedData);
             } else {
                 System.out.println("No data found in data_store_table");
@@ -76,8 +68,24 @@ public class Converter{
         }
     }
 
+    public static Set<Integer> search(String query) {
+        DataStore dataStore= Converter.getDataStore();
+        System.out.println("Indexes: " + dataStore.getIndex());
+        return dataStore.index.getOrDefault(query.toLowerCase(), new SerializableHashSet<>());
+    }
 
+    public static void addDocument(int documentId, List<String> words) {
+        DataStore dataStore= Converter.getDataStore();
+        for (String word : words) {
+            dataStore.index.putIfAbsent(word.toLowerCase(), new SerializableHashSet<>());
+            SerializableHashSet<Integer> docIds=dataStore.index.getOrDefault(word.toLowerCase(), new SerializableHashSet<>());
+            docIds.add(documentId);
+            dataStore.index.put(word.toLowerCase(), docIds);
+        }
+        System.out.println("The index data:\n" + dataStore.index);
+        Converter.update(dataStore);
 
+    }
 
 
 }

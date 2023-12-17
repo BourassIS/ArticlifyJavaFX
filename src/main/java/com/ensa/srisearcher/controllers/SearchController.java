@@ -2,7 +2,6 @@ package com.ensa.srisearcher.controllers;
 
 import com.ensa.srisearcher.Main;
 import com.ensa.srisearcher.algorithms.DataStore;
-import com.ensa.srisearcher.algorithms.InvertedIndex;
 import com.ensa.srisearcher.models.SearchResultItem;
 import com.ensa.srisearcher.utils.Converter;
 import javafx.event.ActionEvent;
@@ -62,16 +61,17 @@ public class SearchController implements Initializable {
     void searchArticles(ActionEvent event) {
         DataStore dataStore = Converter.getDataStore();
         if(query.getText().isEmpty() || query.getText().isBlank())return;
-        Set<Integer> indexes=dataStore.invertedIndex.search(query.getText());
+        Set<Integer> docIds=Converter.search(query.getText());
+        System.out.println(docIds);
         BookLayout.getChildren().clear();
         try {
-            for (Integer i: indexes){
+            for (Integer docId: docIds){
                 FXMLLoader fxmlLoader= new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/ensa/srisearcher/views/search-item.fxml"));
                 VBox cardboard =fxmlLoader.load();
                 SearchItemController cardBookController = fxmlLoader.getController();
                 SearchResultItem searchResultItem = new SearchResultItem(
-                        dataStore.mapsDocIdsToUrls.get(i),
+                        dataStore.mapsDocIdsToUrls.get(docId),
                         "Testing"
                 );
                 cardBookController.SetData(searchResultItem);
@@ -82,7 +82,6 @@ public class SearchController implements Initializable {
 
 
         }
-        // Update the vbox
     }
 
     public  void switchPage(ActionEvent event, String pageName) throws IOException {

@@ -2,6 +2,7 @@ package com.ensa.srisearcher.controllers;
 
 import com.ensa.srisearcher.algorithms.DataStore;
 import com.ensa.srisearcher.models.SearchResultItem;
+import com.ensa.srisearcher.utils.Converter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +38,8 @@ public class ArticleCardController {
 
     @FXML
     void deleteArticleUrl(ActionEvent event) {
-        DataStore.urls.remove(url.getText());
+        DataStore dataStore= Converter.getDataStore();
+        dataStore.urls.remove(url.getText());
+        Converter.update(dataStore);
     }
 }

@@ -2,6 +2,7 @@ package com.ensa.srisearcher.controllers;
 import com.ensa.srisearcher.Main;
 import com.ensa.srisearcher.algorithms.DataStore;
 import com.ensa.srisearcher.algorithms.ScraperAlgo;
+import com.ensa.srisearcher.utils.Converter;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -46,10 +47,11 @@ public class AddArticleController implements Initializable {
 
     @FXML
     void addArticleUrl(MouseEvent event) {
+        DataStore dataStore= Converter.getDataStore();
         if(articleUrl.getText().isEmpty() || articleUrl.getText().isBlank())return;
         articlesList.getChildren().clear();
-        DataStore.urls.add(articleUrl.getText());
-        ArrayList<String> urls= new ArrayList<>(DataStore.urls);
+        dataStore.urls.add(articleUrl.getText());
+        ArrayList<String> urls= new ArrayList<>(dataStore.urls);
         try {
             for(int i =0 ;i<urls.size();i++){
                 FXMLLoader fxmlLoader= new FXMLLoader();
@@ -63,6 +65,7 @@ public class AddArticleController implements Initializable {
             e.printStackTrace();
 
         }
+        Converter.update(dataStore);
         scraperAlgo.scrapePage(articleUrl.getText());
     }
 
@@ -79,7 +82,9 @@ public class AddArticleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<String> urls= new ArrayList<>(DataStore.urls);
+        DataStore dataStore = Converter.getDataStore();
+        System.out.println(dataStore.urls);
+        ArrayList<String> urls= new ArrayList<>(dataStore.urls);
         try {
             for(int i =0 ;i<urls.size();i++){
                 FXMLLoader fxmlLoader= new FXMLLoader();

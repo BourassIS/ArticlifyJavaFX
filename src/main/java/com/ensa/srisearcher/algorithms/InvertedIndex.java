@@ -1,25 +1,30 @@
 package com.ensa.srisearcher.algorithms;
 
 import com.ensa.srisearcher.models.IndexedDocument;
+import com.ensa.srisearcher.utils.Converter;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class InvertedIndex {
+public class InvertedIndex implements Serializable {
 
 
     public void addDocument(int documentId, List<String> words) {
+        DataStore dataStore= Converter.getDataStore();
         for (String word : words) {
-            DataStore.index.putIfAbsent(word.toLowerCase(), new HashSet<>());
-            DataStore.index.get(word.toLowerCase()).add(documentId);
+            dataStore.index.putIfAbsent(word.toLowerCase(), new HashSet<>());
+            dataStore.index.get(word.toLowerCase()).add(documentId);
         }
+        Converter.update(dataStore);
     }
 
     public Set<Integer> search(String query) {
-        return DataStore.index.getOrDefault(query, new HashSet<>());
+        DataStore dataStore= Converter.getDataStore();
+        return dataStore.index.getOrDefault(query, new HashSet<>());
     }
 
 

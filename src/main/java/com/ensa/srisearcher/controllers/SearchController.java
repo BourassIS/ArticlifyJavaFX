@@ -4,6 +4,7 @@ import com.ensa.srisearcher.Main;
 import com.ensa.srisearcher.algorithms.DataStore;
 import com.ensa.srisearcher.algorithms.InvertedIndex;
 import com.ensa.srisearcher.models.SearchResultItem;
+import com.ensa.srisearcher.utils.Converter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,8 +60,9 @@ public class SearchController implements Initializable {
 
     @FXML
     void searchArticles(ActionEvent event) {
+        DataStore dataStore = Converter.getDataStore();
         if(query.getText().isEmpty() || query.getText().isBlank())return;
-        Set<Integer> indexes=DataStore.invertedIndex.search(query.getText());
+        Set<Integer> indexes=dataStore.invertedIndex.search(query.getText());
         BookLayout.getChildren().clear();
         try {
             for (Integer i: indexes){
@@ -69,7 +71,7 @@ public class SearchController implements Initializable {
                 VBox cardboard =fxmlLoader.load();
                 SearchItemController cardBookController = fxmlLoader.getController();
                 SearchResultItem searchResultItem = new SearchResultItem(
-                        DataStore.mapsDocIdsToUrls.get(i),
+                        dataStore.mapsDocIdsToUrls.get(i),
                         "Testing"
                 );
                 cardBookController.SetData(searchResultItem);

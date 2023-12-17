@@ -1,18 +1,21 @@
 package com.ensa.srisearcher.algorithms;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import com.ensa.srisearcher.models.IndexedDocument;
+import com.ensa.srisearcher.utils.Converter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class ScraperAlgo {
+public class ScraperAlgo implements Serializable {
 
 
     public Map<String, List<String>> scrapePage(String url) {
+        DataStore dataStore= Converter.getDataStore();
 
         Map<String, List<String>> result = new HashMap<>();
 
@@ -30,16 +33,17 @@ public class ScraperAlgo {
             extractTagContent(document, "p", result);
             extractTagContent(document, "span", result);
             extractTagContent(document, "a", result);
-            DataStore.scrapedData.put(url, result);
+            dataStore.scrapedData.put(url, result);
             List<String> concatenatedList = result.entrySet().stream()
                     .flatMap(entry -> entry.getValue().stream()
                             .flatMap(str -> Arrays.stream(str.split("\\s+")))) // split each string into words
                     .collect(Collectors.toList());
             System.out.println(concatenatedList);
-            DataStore.invertedIndex.addDocument(DataStore.getDocId(), concatenatedList);
-            DataStore.mapsDocIdsToUrls.put(DataStore.getDocId(), url);
-            DataStore.incrementDocId();
-            System.out.println(DataStore.index);
+            dataStore.invertedIndex.addDocument(dataStore.getDocId(), concatenatedList);
+            dataStore.mapsDocIdsToUrls.put(dataStore.getDocId(), url);
+            dataStore.incrementDocId();
+            System.out.println(dataStore.index);
+            Converter.update(dataStore);
             return result;
         } catch (Exception e) {
             result.put("error", List.of("Error: " + e.getMessage()));

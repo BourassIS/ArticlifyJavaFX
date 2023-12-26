@@ -111,6 +111,7 @@ public class AddArticleController implements Initializable {
         stage.setWidth(960);
         stage.setHeight(640);
         stage.show();
+
     }
 
     public  void switchPageMouse(MouseEvent event, String pageName) throws IOException {

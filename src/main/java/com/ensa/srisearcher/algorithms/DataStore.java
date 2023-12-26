@@ -4,6 +4,7 @@ import com.ensa.srisearcher.models.IndexedDocument;
 import com.ensa.srisearcher.utils.Converter;
 import com.ensa.srisearcher.utils.serializables.SerializableHashMap;
 import com.ensa.srisearcher.utils.serializables.SerializableHashSet;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.io.Serial;
@@ -37,5 +38,25 @@ public class DataStore implements Serializable {
                 ", mapsDocIdsToUrls=" + mapsDocIdsToUrls +
                 ", scrapedData=" + scrapedData +
                 '}';
+    }
+
+    public static String getSnippetFromUrl(String url) {
+        Map<String, List<String>> snippets = Converter.getDataStore().getScrapedData().getOrDefault(url, new HashMap<>());
+        StringBuilder snippet = new StringBuilder();
+        System.out.println(snippets);
+        int counter=5;
+        for (Map.Entry<String, List<String>> entry : snippets.entrySet()) {
+            if(List.of("p", "span", "a").contains(entry.getKey()))continue;
+
+            if(counter<=0)break;
+            for(String s : entry.getValue()){
+                if(counter<=0)break;
+                snippet.append(s).append(" ");
+                counter--;
+            }
+            counter--;
+        }
+        snippet.append("...");
+        return snippet.toString();
     }
 }

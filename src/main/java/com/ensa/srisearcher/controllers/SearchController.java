@@ -72,7 +72,7 @@ public class SearchController implements Initializable {
                 SearchItemController cardBookController = fxmlLoader.getController();
                 SearchResultItem searchResultItem = new SearchResultItem(
                         dataStore.mapsDocIdsToUrls.get(docId),
-                        "Testing"
+                        DataStore.getSnippetFromUrl(dataStore.mapsDocIdsToUrls.get(docId))
                 );
                 cardBookController.SetData(searchResultItem);
                 BookLayout.getChildren().add(cardboard);

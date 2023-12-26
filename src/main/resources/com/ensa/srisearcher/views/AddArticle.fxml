@@ -33,7 +33,7 @@
          <children>
             <HBox layoutX="19.0" layoutY="20.0" prefHeight="68.0" prefWidth="858.0" spacing="25.0">
                <children>
-                  <TextField fx:id="articleUrl" prefHeight="62.0" prefWidth="620.0" promptText="Collez le lien de l'article ici..." style="-fx-background-radius: 15; -fx-background-color: #F2F3F5;">
+                  <TextField focusTraversable="false" fx:id="articleUrl" prefHeight="62.0" prefWidth="620.0" promptText="Collez le lien de l'article ici..." style="-fx-background-radius: 15; -fx-background-color: #F2F3F5;">
                      <font>
                         <Font name="Lato Semibold" size="20.0" />
                      </font>

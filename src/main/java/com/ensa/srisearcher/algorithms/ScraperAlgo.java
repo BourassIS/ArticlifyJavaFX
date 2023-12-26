@@ -33,6 +33,8 @@ public class ScraperAlgo implements Serializable {
             extractTagContent(document, "h6", result);
             extractTagContent(document, "p", result);
             extractTagContent(document, "span", result);
+            extractTagContent(document, "meta", result);
+            extractTagContent(document, "description", result);
             extractTagContent(document, "a", result);
             dataStore.scrapedData.put(url, result);
             List<String> concatenatedList = result.entrySet().stream()
@@ -42,7 +44,7 @@ public class ScraperAlgo implements Serializable {
             DataStore st=Converter.addDocument(dataStore.getDocId(), concatenatedList);
             st.mapsDocIdsToUrls.put(dataStore.getDocId(), url);
             st.incrementDocId();
-
+            st.scrapedData=dataStore.getScrapedData();
             Converter.update(st);
             return result;
         } catch (Exception e) {

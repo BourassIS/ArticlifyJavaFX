@@ -20,7 +20,7 @@
             <Pane prefHeight="83.0" prefWidth="648.0" style="-fx-background-color: #EF2E41; -fx-background-radius: 100;" />
             <Pane layoutX="11.0" layoutY="10.0" prefHeight="62.0" prefWidth="609.0" style="-fx-background-color: #f2f3f5; -fx-background-radius: 100;">
                <children>
-                  <TextField fx:id="query" prefHeight="62.0" prefWidth="571.0" promptText="Write Your Keywords ..." style="-fx-background-radius: 100;">
+                  <TextField focusTraversable="false" fx:id="query" prefHeight="62.0" prefWidth="571.0" promptText="Write Your Keywords ..." style="-fx-background-radius: 100;">
                      <font>
                         <Font name="Lato Semibold" size="20.0" />
                      </font>

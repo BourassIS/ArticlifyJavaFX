@@ -19,7 +19,7 @@ public class ConnectionDB {
     public ConnectionDB() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?useSSL=false&allowPublicKeyRetrieval=true", "root", "root");
+            this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/toto?useSSL=false&allowPublicKeyRetrieval=true", "root", "root");
 
 
             System.out.println("Connection OK");

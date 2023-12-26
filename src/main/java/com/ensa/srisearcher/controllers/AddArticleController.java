@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+
 public class AddArticleController implements Initializable {
     private final ScraperAlgo scraperAlgo=new ScraperAlgo();
     private Stage stage;
@@ -66,12 +67,12 @@ public class AddArticleController implements Initializable {
 
         }
         Converter.update(dataStore);
-        scraperAlgo.scrapePage(articleUrl.getText());
+        scraperAlgo.pageScraper(articleUrl.getText());
     }
 
     @FXML
     void goToSearchPageCall(MouseEvent event) {
-        System.out.println("Going to the search page");
+
         try{
             this.switchPageMouse(event, "search.fxml");
         }catch (Exception e){

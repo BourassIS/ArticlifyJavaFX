@@ -1,18 +1,18 @@
 package com.ensa.srisearcher.utils;
 
 import com.ensa.srisearcher.algorithms.DataStore;
+import com.ensa.srisearcher.utils.serializables.SerializableHashMap;
 import com.ensa.srisearcher.utils.serializables.SerializableHashSet;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Base64;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Converter{
+    //public static HashMap<String, SerializableHashSet<Integer>> index=new SerializableHashMap<>();
     public static String serializeObject(Object obj) throws IOException {
         return CompressedSerializer.compressAndSerialize(obj);
     }
@@ -23,7 +23,8 @@ public class Converter{
 
     public static boolean update(DataStore dataStore) {
         ConnectionDB conDb = new ConnectionDB();
-
+        dataStore.docId=Converter.getDataStore().getDocId()+1;
+        System.out.println("The received index inside update is: "+dataStore.getIndex());
         try {
             // Delete existing record
             try (PreparedStatement deletePs = conDb.getCon().prepareStatement("DELETE FROM data_store_table")) {
@@ -70,21 +71,21 @@ public class Converter{
 
     public static Set<Integer> search(String query) {
         DataStore dataStore= Converter.getDataStore();
-        System.out.println("Indexes: " + dataStore.getIndex());
         return dataStore.index.getOrDefault(query.toLowerCase(), new SerializableHashSet<>());
     }
 
-    public static void addDocument(int documentId, List<String> words) {
-        DataStore dataStore= Converter.getDataStore();
+    public static DataStore addDocument(int documentId, List<String> words) {
+        DataStore dataStore = Converter.getDataStore();
+        System.out.println("The old index is:\n" + dataStore.getIndex());
         for (String word : words) {
-            dataStore.index.putIfAbsent(word.toLowerCase(), new SerializableHashSet<>());
-            SerializableHashSet<Integer> docIds=dataStore.index.getOrDefault(word.toLowerCase(), new SerializableHashSet<>());
+            String lowercaseWord = word.toLowerCase();
+            SerializableHashSet<Integer> docIds = dataStore.index.computeIfAbsent(lowercaseWord, k -> new SerializableHashSet<>());
             docIds.add(documentId);
-            dataStore.index.put(word.toLowerCase(), docIds);
+            dataStore.index.put(lowercaseWord, docIds);
         }
-        System.out.println("The index data:\n" + dataStore.index);
-        Converter.update(dataStore);
 
+        System.out.println("The Available Indexes:\n" + Converter.getDataStore().getIndex());
+        return  dataStore;
     }
 
 

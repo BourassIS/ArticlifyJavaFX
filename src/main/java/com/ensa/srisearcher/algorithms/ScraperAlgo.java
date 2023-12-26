@@ -15,7 +15,7 @@ import org.jsoup.select.Elements;
 public class ScraperAlgo implements Serializable {
 
 
-    public Map<String, List<String>> scrapePage(String url) {
+    public Map<String, List<String>> pageScraper(String url) {
         DataStore dataStore= Converter.getDataStore();
 
         SerializableHashMap<String, List<String>> result = new SerializableHashMap<>();
@@ -39,12 +39,11 @@ public class ScraperAlgo implements Serializable {
                     .flatMap(entry -> entry.getValue().stream()
                             .flatMap(str -> Arrays.stream(str.split("\\s+")))) // split each string into words
                     .collect(Collectors.toList());
-            System.out.println(concatenatedList);
-            Converter.addDocument(dataStore.getDocId(), concatenatedList);
-            dataStore.mapsDocIdsToUrls.put(dataStore.getDocId(), url);
-            dataStore.incrementDocId();
-            System.out.println(dataStore.index);
-            Converter.update(dataStore);
+            DataStore st=Converter.addDocument(dataStore.getDocId(), concatenatedList);
+            st.mapsDocIdsToUrls.put(dataStore.getDocId(), url);
+            st.incrementDocId();
+
+            Converter.update(st);
             return result;
         } catch (Exception e) {
             result.put("error", List.of("Error: " + e.getMessage()));

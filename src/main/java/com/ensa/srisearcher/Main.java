@@ -1,5 +1,6 @@
 package com.ensa.srisearcher;
 
+import com.ensa.srisearcher.utils.Converter;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

@@ -1,7 +1,7 @@
 -- Create database if not exists
-CREATE DATABASE IF NOT EXISTS test;
+CREATE DATABASE IF NOT EXISTS toto;
 
-USE test;
+USE toto;
 
 -- Drop table if it exists
 DROP TABLE IF EXISTS data_store_table;

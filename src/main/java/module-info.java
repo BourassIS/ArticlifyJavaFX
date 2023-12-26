@@ -5,6 +5,8 @@ module com.example.libraryapp {
     requires org.jsoup;
     requires lombok;
     requires mysql.connector.j;
+    requires org.slf4j;
+    requires ch.qos.logback.classic;
 
     opens com.ensa.srisearcher to javafx.fxml;
     exports com.ensa.srisearcher;

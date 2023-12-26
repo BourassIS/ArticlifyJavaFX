@@ -22,8 +22,10 @@ public class DataStore implements Serializable {
     public HashMap<String, HashMap<String, List<String>>> scrapedData = new SerializableHashMap<>();
 
     public void incrementDocId() {
-        docId++;
-        Converter.update(this);
+        DataStore store = Converter.getDataStore();
+        store.docId++;
+        System.out.println("Incremented doc id: " + store.docId);
+        Converter.update(store);
     }
 
     @Override

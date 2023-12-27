@@ -7,6 +7,8 @@ module com.example.libraryapp {
     requires mysql.connector.j;
     requires org.slf4j;
     requires ch.qos.logback.classic;
+    requires java.desktop;
+    requires javafx.web;
 
     opens com.ensa.srisearcher to javafx.fxml;
     exports com.ensa.srisearcher;

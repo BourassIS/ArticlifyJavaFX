@@ -25,10 +25,11 @@
                             </ImageView>
                         </children>
                     </AnchorPane>
-                    <Label fx:id="url" cache="true" prefHeight="47.0" prefWidth="673.0" style="-fx-cursor: hand;">
+                    <Label onMouseClicked="#openArticleLink" fx:id="urlLink" cache="true" prefHeight="47.0" prefWidth="673.0" style="-fx-cursor: hand;">
                         <font>
                             <Font name="Montserrat Medium" size="17.0" />
                         </font>
+
                     </Label>
                     <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteArticleUrl" prefHeight="33.0" prefWidth="121.0" style="-fx-background-radius: 4,67; -fx-cursor: hand;" styleClass="gris_button" stylesheets="@style.css" text="Supprimer" textFill="WHITE">
                         <font>

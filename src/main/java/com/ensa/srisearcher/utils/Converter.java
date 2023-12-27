@@ -27,22 +27,24 @@ public class Converter{
         System.out.println("The received index inside update is: "+dataStore.getIndex());
         try {
             // Delete existing record
-            try (PreparedStatement deletePs = conDb.getCon().prepareStatement("DELETE FROM data_store_table")) {
+            try (PreparedStatement deletePs = conDb.getCon().prepareStatement("DELETE FROM yocto.data_store_table")) {
                 deletePs.executeUpdate();
             }
 
             // Insert new data
-            try (PreparedStatement insertPs = conDb.getCon().prepareStatement("INSERT INTO data_store_table (data) VALUES (?)")) {
+            try (PreparedStatement insertPs = conDb.getCon().prepareStatement("INSERT INTO yocto.data_store_table (data) VALUES (?)")) {
                 String serializedData = Converter.serializeObject(dataStore);
                 insertPs.setString(1, serializedData);
                 insertPs.executeUpdate();
             }
 
             System.out.println("Database update successful");
+            conDb.closeConnection();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Database update failed");
+            conDb.closeConnection();
             return false;
         }
     }
@@ -51,20 +53,23 @@ public class Converter{
 
     public static DataStore getDataStore() {
         ConnectionDB conDb = new ConnectionDB();
-        try (PreparedStatement ps = conDb.getCon().prepareStatement("SELECT data FROM data_store_table")) {
+        try (PreparedStatement ps = conDb.getCon().prepareStatement("SELECT data FROM yocto.data_store_table")) {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String serializedData = rs.getString("data");
                 System.out.println("Data was found");
+                conDb.closeConnection();
                 return (DataStore) Converter.deserializeObject(serializedData);
             } else {
                 System.out.println("No data found in data_store_table");
+                conDb.closeConnection();
                 update(new DataStore());
                 return new DataStore();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            update(new DataStore());
+            //update(new DataStore());
+            conDb.closeConnection();
             return new DataStore();
         }
     }

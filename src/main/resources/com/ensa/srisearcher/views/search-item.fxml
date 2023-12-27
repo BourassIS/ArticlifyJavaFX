@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
 
 <VBox fx:id="box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="823.0" spacing="120.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensa.srisearcher.controllers.SearchItemController">
     <Pane layoutX="20.0" layoutY="64.0" prefHeight="100.0" prefWidth="800.0" style="-fx-background-color: #f2f3f5;">
@@ -29,7 +30,7 @@
                              </AnchorPane>
                              <VBox prefHeight="65.0" prefWidth="728.0">
                                  <children>
-                                     <Label fx:id="bookAuthor" cache="true" prefHeight="33.0" prefWidth="741.0" style="-fx-cursor: hand;" textFill="#4a20aa">
+                                     <Label fx:id="urlLink" cache="true" prefHeight="33.0" prefWidth="741.0" style="-fx-cursor: hand;" textFill="#4a20aa" onMouseClicked="#openArticleLink">
                                          <font>
                                              <Font name="Lato Heavy" size="17.0" />
                                          </font>
